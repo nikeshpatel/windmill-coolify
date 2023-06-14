@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  windmill_server:
+    image: ghcr.io/windmill-labs/windmill:main
+    deploy:
+      replicas: 1
+    restart: unless-stopped
+    # Expose is optional apparently
+    expose:
+      - 8000
+    environment:
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?sslmode=disable
+      - BASE_URL=${WM_BASE_URL}
+      - RUST_LOG=info
+      ## You can set the number of workers to > 0 and not need any separate worker service but not recommended
+      - NUM_WORKERS=10
+      - DISABLE_SERVER=false
+      - METRICS_ADDR=false
+    depends_on:
+      db:
+        condition: service_healthy
+    # volumes:
+    # - ./oauth.json/:/usr/src/app/oauth.json
+
+  lsp:
+    image: ghcr.io/windmill-labs/windmill-lsp:latest
+    restart: unless-stopped
+    expose:
+      - 3001
+
+volumes:
+  db_data: null
