@@ -9,13 +9,13 @@ services:
     expose:
       - 8000
     environment:
-      - DATABASE_URL: "postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?sslmode=disable"
-      - BASE_URL: "${WM_BASE_URL}"
-      - RUST_LOG: info
+      DATABASE_URL: "postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?sslmode=disable"
+      BASE_URL: "${WM_BASE_URL}"
+      RUST_LOG: info
       ## You can set the number of workers to > 0 and not need any separate worker service but not recommended
-      - NUM_WORKERS: 10
-      - DISABLE_SERVER: false
-      - METRICS_ADDR: false
+      NUM_WORKERS: 10
+      DISABLE_SERVER: false
+      METRICS_ADDR: false
     # volumes:
     # - ./oauth.json/:/usr/src/app/oauth.json
 
