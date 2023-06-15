@@ -16,9 +16,6 @@ services:
       - NUM_WORKERS=10
       - DISABLE_SERVER=false
       - METRICS_ADDR=false
-    depends_on:
-      db:
-        condition: service_healthy
     # volumes:
     # - ./oauth.json/:/usr/src/app/oauth.json
 
